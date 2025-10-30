@@ -1,0 +1,21 @@
+{
+  "name": "Humanzier",
+  "short_name": "Humanzier",
+  "description": "Rewrite text into a more human, natural style with adjustable tone and rhythm. Runs locally.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b0c10",
+  "theme_color": "#0b0c10",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

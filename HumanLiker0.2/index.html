@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!--
+  Title: Humanzier – Humanize Your Text (v0.2)
+  Author: Tiger + ChatGPT
+  Date: 2025-10-29
+  Description: English-first UI with UI language toggle (EN/ZH) and processing language control (Auto/EN/ZH).
+  -->
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Humanzier (v0.2)</title>
+  <meta name="description" content="Rewrite text into a more human, natural style with adjustable tone and rhythm. Runs locally."/>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/>
+  <link rel="manifest" href="manifest.webmanifest"/>
+  <meta name="theme-color" content="#0b0c10"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <h1>Humanzier <span class="badge">v0.2</span></h1>
+    <nav class="nav">
+      <a href="./index.html" class="active" data-i18n="nav.app">App</a>
+      <a href="./privacy.html" data-i18n="nav.privacy">Privacy</a>
+      <a href="./terms.html" data-i18n="nav.terms">Terms</a>
+      <div class="lang-switch">
+        <label for="uiLang" data-i18n="ui.langLabel">UI Language</label>
+        <select id="uiLang">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card stack">
+      <div class="row">
+        <div>
+          <label data-i18n="proc.lang">Processing Language</label>
+          <select id="procLang">
+            <option value="auto" data-i18n="proc.auto">Auto Detect</option>
+            <option value="en">English</option>
+            <option value="zh">中文</option>
+          </select>
+        </div>
+        <div>
+          <label data-i18n="tone.label">Tone</label>
+          <select id="tone">
+            <option value="neutral" data-i18n="tone.neutral">Neutral</option>
+            <option value="friendly" data-i18n="tone.friendly">Friendly</option>
+            <option value="assertive" data-i18n="tone.assertive">Assertive</option>
+            <option value="story" data-i18n="tone.story">Story</option>
+          </select>
+        </div>
+        <div>
+          <label>Humanize Level</label>
+          <input id="level" type="range" min="0" max="100" value="45"/>
+        </div>
+      </div>
+
+      <div class="row toggles">
+        <label><input id="vary" type="checkbox" checked> <span data-i18n="opt.vary">Vary sentence length</span></label>
+        <label><input id="markers" type="checkbox" checked> <span data-i18n="opt.markers">Insert discourse markers</span></label>
+        <label><input id="contractions" type="checkbox" checked> <span data-i18n="opt.contractions">Use English contractions</span></label>
+      </div>
+
+      <div class="stack">
+        <label data-i18n="input.label">Input text (English or Chinese)</label>
+        <textarea id="inputText" data-i18n-placeholder="input.placeholder" placeholder="Paste or type text to humanize..."></textarea>
+        <div class="btns">
+          <button class="primary" id="run" data-i18n="btn.humanize">Humanize</button>
+          <button id="reset" data-i18n="btn.reset">Reset</button>
+        </div>
+        <p class="hint" data-i18n="hint.privacy">Local-only rewrite. Nothing is uploaded. For readability and style — not for academic misconduct or misattribution.</p>
+      </div>
+    </section>
+
+    <section class="card stack">
+      <div class="row" style="justify-content:space-between">
+        <label data-i18n="output.label">Output (copyable)</label>
+        <span class="badge">Humanity Score <span id="score">–</span></span>
+      </div>
+      <textarea id="outputText" data-i18n-placeholder="output.placeholder" placeholder="Your humanized text will appear here…"></textarea>
+      <div class="btns">
+        <button id="copy" data-i18n="btn.copy">Copy Output</button>
+      </div>
+      <p class="hint" data-i18n="hint.ethics">Do not use this tool for deceptive purposes (e.g., plagiarism or hiding authorship). It is for clearer, more human expression.</p>
+    </section>
+  </main>
+
+  <footer>
+    <small>Humanzier (v0.2) · PWA-ready · Local-first · © Tiger</small>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="i18n.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(()=>{});
+      });
+    }
+  </script>
+</body>
+</html>
