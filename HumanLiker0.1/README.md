@@ -1,5 +1,6 @@
 
 # Humanzier (v0.1) — Mini Site (PWA-Ready)
+UI Language: Chinese Simplified
 
 Local, rule-based text humanizer. No backend, no tracking. Works offline after first load.
 
