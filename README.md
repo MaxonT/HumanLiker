@@ -6,12 +6,6 @@
 	1.	Download humanzier-site-v0.2.zip
 	2.	Unzip → open index.html in your browser
 
-☁️ Deploy on GitHub Pages
-	1.	Create repo humanzier
-	2.	Upload files → Settings → Pages
-	3.	Source: Deploy from branch → main → / (root)
-	4.	Wait 1–2 min → open
-https://<your-username>.github.io/humanzier/
 -----
 
 🧠 Humanzier
