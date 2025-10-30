@@ -1,5 +1,6 @@
 
 # Humanzier (v0.2) — English‑first UI + Language Controls
+UI Language: English or Chinese Simplified
 
 Local, rule-based text humanizer. English UI by default, with UI language toggle (EN/中文) and processing language control (Auto/EN/ZH). PWA-ready. No backend.
 
