@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HumanLiker v0.4 — Promptly Style Demo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    
+
+<div class="brand brand-inline" aria-label="HumanLiker">
+  <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img">
+    <defs>
+      <linearGradient id="hlgrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#7C3AED"/>
+        <stop offset="100%" stop-color="#06B6D4"/>
+      </linearGradient>
+    </defs>
+    <rect x="2" y="2" width="44" height="44" rx="12" ry="12" fill="url(#hlgrad)"/>
+    <circle cx="18" cy="20" r="3" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="30" cy="20" r="3" fill="#FFFFFF" opacity="0.95"/>
+    <rect x="16" y="28" width="16" height="3" rx="1.5" fill="#FFFFFF" opacity="0.95"/>
+  </svg>
+  <span class="brand-name">HumanLiker</span>
+</div>
+
+
+    <nav class="controls">
+      <div class="navlinks"><a href="#dashboard" data-i18n="nav_dashboard">Dashboard</a><a href="#demo" data-i18n="nav_demo">Demo</a><a href="#docs" data-i18n="nav_docs">Docs</a><a href="#pricing" data-i18n="nav_pricing">Pricing</a><a href="#terms" class="open-terms" data-i18n="nav_terms">Terms</a><a href="#privacy" class="open-privacy" data-i18n="nav_privacy">Privacy</a><a href="#cookies" class="open-cookies" data-i18n="nav_cookies">Cookies</a></div>
+      <label class="control"><span data-i18n="appearance">System</span>
+        <select id="themeSelect">
+          <option value="auto" data-i18n="system">System</option>
+          <option value="light" data-i18n="light">Light</option>
+          <option value="dark" data-i18n="dark">Dark</option>
+        </select>
+      </label>
+      <label class="control"><span data-i18n="language">English</span>
+        <select id="langSelect"></select>
+      </label>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <h1 data-i18n="hero_title">Make AI sound human — naturally.</h1>
+      <p class="hero-sub" data-i18n="hero_sub">HumanLiker rewrites model outputs into clear, warm, and natural language.</p>
+      <div class="cta">
+        <a href="#demo" class="btn primary" data-i18n="try_now">Try Now</a>
+        <a href="#docs" class="btn ghost" data-i18n="read_docs">Read Docs</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container" id="dashboard">
+    <!-- KPI Cards -->
+    <section class="kpis">
+      <div class="kpi card">
+        <div class="metric-title grey-gradient-text" data-i18n="tone_acc">Tone Accuracy</div>
+        <div class="kpi-value" id="kpiTone">0%</div>
+      </div>
+      <div class="kpi card">
+        <div class="metric-title grey-gradient-text" data-i18n="hl_score">Human‑Likeness</div>
+        <div class="kpi-value" id="kpiHuman">0.0</div>
+      </div>
+      <div class="kpi card">
+        <div class="metric-title grey-gradient-text" data-i18n="token_cost">Token Cost</div>
+        <div class="kpi-value" id="kpiCost">0</div>
+      </div>
+      <div class="kpi card">
+        <div class="metric-title grey-gradient-text" data-i18n="rpm">Rewrites/min</div>
+        <div class="kpi-value" id="kpiRPM">0</div>
+      </div>
+      <div class="kpi card">
+        <div class="metric-title grey-gradient-text" data-i18n="progress">Progress %</div>
+        <div class="kpi-value" id="kpiProgress">0%</div>
+      </div>
+    </section>
+
+    <!-- Demo Panel -->
+    <section class="panel-grid" id="demo">
+      <div class="panel card">
+        <div class="panel-title" data-i18n="input_text">Input text</div>
+        <textarea id="inputArea" placeholder="Paste raw AI output here..."></textarea>
+        <div class="panel-row">
+          <label class="control sm">
+            <span data-i18n="tone">Tone</span>
+            <select id="toneSelect">
+              <option value="friendly">Friendly</option>
+              <option value="concise">Concise</option>
+              <option value="confident">Confident</option>
+              <option value="neutral">Neutral</option>
+            </select>
+          </label>
+          <label class="control sm">
+            <span data-i18n="grade">Formality</span>
+            <select id="gradeSelect">
+              <option value="casual">Casual</option>
+              <option value="balanced" selected>Balanced</option>
+              <option value="formal">Formal</option>
+            </select>
+          </label>
+          <button class="btn primary" id="runBtn" data-i18n="humanize">Humanize</button>
+        </div>
+      </div>
+      <div class="panel card">
+        <div class="panel-title" data-i18n="output_text">Output text</div>
+        <textarea id="outputArea" readonly placeholder="Your humanized text will appear here."></textarea>
+        <div class="panel-row">
+          <button class="btn ghost" id="copyBtn" data-i18n="copy">Copy</button>
+          <span class="hint" id="copyHint" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Simple chart placeholders -->
+    <section class="charts" id="docs">
+      <div class="card chart ph">
+        <div class="chart-title grey-gradient-text">Usage Growth</div>
+        <svg id="usageChart" role="img" aria-label="Usage Growth line chart"></svg>
+      </div>
+      <div class="card chart ph">
+        <div class="chart-title grey-gradient-text">Distribution</div>
+        <svg id="distChart" role="img" aria-label="Distribution donut chart"></svg>
+      </div>
+      <div class="card chart ph">
+        <div class="chart-title grey-gradient-text">Quality Gauge</div>
+        <svg id="gaugeChart" role="img" aria-label="Quality gauge"></svg>
+      </div>
+    </section>
+  
+    <!-- Legal sections -->
+    <section class="legal terms card" id="terms">
+      <h2 data-i18n="terms_title">Terms of Service</h2>
+      <p data-i18n="terms_intro">By using HumanLiker, you agree to these terms. Do not misuse or abuse the service. We may update these terms to reflect improvements.</p>
+      <ul>
+        <li data-i18n="terms_use">Use only for lawful and ethical purposes.</li>
+        <li data-i18n="terms_priv">We respect your privacy; see the Privacy Policy.</li>
+        <li data-i18n="terms_ip">You retain your content; we only process it to provide the service.</li>
+      </ul>
+    </section>
+    <section class="legal privacy card" id="privacy">
+      <h2 data-i18n="privacy_title">Privacy Policy</h2>
+      <p data-i18n="privacy_intro">We collect the minimum necessary data to operate the demo. No trackers by default. We store preferences only after your consent.</p>
+      <ul>
+        <li data-i18n="privacy_data">Data minimization and purpose limitation.</li>
+        <li data-i18n="privacy_storage">Short retention for logs; you can request deletion.</li>
+        <li data-i18n="privacy_cookies">See Cookies for preferences and analytics.</li>
+      </ul>
+    </section>
+    <section class="legal cookies card" id="cookies">
+      <h2 data-i18n="cookies_title">Cookies & Preferences</h2>
+      <p data-i18n="cookies_intro">We use cookies to remember your theme, language, and consent. Optional analytics only with your opt‑in.</p>
+      <ul>
+        <li data-i18n="cookies_prefs">Preference cookies: theme, language, UI layout.</li>
+        <li data-i18n="cookies_analytics">Analytics cookies: off by default; opt‑in only.</li>
+        <li data-i18n="cookies_control">You can clear cookies in your browser at any time.</li>
+      </ul>
+    </section>
+    
+</main>
+
+  
+<section id="pricing" class="container">
+  <h2 class="section-title">Subscription</h2>
+  <div class="pricing-grid">
+    <div class="card price">
+      <h3>Free</h3>
+      <p class="price-tag">$0</p>
+      <ul>
+        <li>Basic rewrite</li>
+        <li>Limited runs/day</li>
+        <li>Community support</li>
+      </ul>
+      <button class="btn ghost subscribe" data-plan="free">Choose Free</button>
+    </div>
+    <div class="card price featured">
+      <h3>Pro</h3>
+      <p class="price-tag">$9<span>/mo</span></p>
+      <ul>
+        <li>Advanced tone control</li>
+        <li>Higher limits</li>
+        <li>Email support</li>
+      </ul>
+      <button class="btn primary subscribe" data-plan="pro">Start Pro</button>
+    </div>
+    <div class="card price">
+      <h3>Team</h3>
+      <p class="price-tag">$29<span>/mo</span></p>
+      <ul>
+        <li>Team seats</li>
+        <li>Usage analytics</li>
+        <li>Priority support</li>
+      </ul>
+      <button class="btn ghost subscribe" data-plan="team">Start Team</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+    <div id="footer"></div>
+  </footer>
+
+  <script src="core.js"></script>
+
+<div id="modalOverlay" class="modal-overlay" hidden></div>
+<div id="modalTerms" class="modal card" role="dialog" aria-modal="true" hidden>
+  <div class="modal-head">
+    <h3 data-i18n="terms_title">Terms of Service</h3>
+    <button class="btn ghost modal-close" data-close="modalTerms">✕</button>
+  </div>
+  <div class="modal-body">
+    <p data-i18n="terms_intro">By using HumanLiker, you agree to these terms. Do not misuse or abuse the service. We may update these terms to reflect improvements.</p>
+    <h4>Use of Service</h4>
+    <ul>
+      <li data-i18n="terms_use">Use only for lawful and ethical purposes.</li>
+      <li>Commercial use permitted under your responsibility; no illegal or harmful content.</li>
+      <li>Respect rate limits and fair use; do not attack or reverse-engineer the demo.</li>
+    </ul>
+    <h4>Content & IP</h4>
+    <ul>
+      <li data-i18n="terms_ip">You retain your content; we only process it to provide the service.</li>
+      <li>Generated text may be transiently cached to improve product reliability.</li>
+    </ul>
+    <h4>Availability</h4>
+    <ul>
+      <li>The demo may change, pause, or terminate without prior notice.</li>
+      <li>We are not liable for indirect or incidental damages caused by downtime.</li>
+    </ul>
+  </div>
+</div>
+<div id="modalPrivacy" class="modal card" role="dialog" aria-modal="true" hidden>
+  <div class="modal-head">
+    <h3 data-i18n="privacy_title">Privacy Policy</h3>
+    <button class="btn ghost modal-close" data-close="modalPrivacy">✕</button>
+  </div>
+  <div class="modal-body">
+    <p data-i18n="privacy_intro">We collect the minimum necessary data to operate the demo. No trackers by default. We store preferences only after your consent.</p>
+    <h4>Data We Handle</h4>
+    <ul>
+      <li data-i18n="privacy_data">Data minimization and purpose limitation.</li>
+      <li>Runtime logs (errors, performance) are ephemeral and rotated.</li>
+      <li>We never sell personal data. We do not use third‑party trackers.</li>
+    </ul>
+    <h4>Retention & Deletion</h4>
+    <ul>
+      <li data-i18n="privacy_storage">Short retention for logs; you can request deletion.</li>
+      <li>Preferences (theme, language) only after opt‑in; stored in your browser.</li>
+    </ul>
+    <h4>Security</h4>
+    <ul>
+      <li>HTTPS recommended. Avoid sharing secrets in the demo.</li>
+    </ul>
+  </div>
+</div>
+<div id="modalCookies" class="modal card" role="dialog" aria-modal="true" hidden>
+  <div class="modal-head">
+    <h3 data-i18n="cookies_title">Cookies & Preferences</h3>
+    <button class="btn ghost modal-close" data-close="modalCookies">✕</button>
+  </div>
+  <div class="modal-body">
+    <p data-i18n="cookies_intro">We use cookies to remember your theme, language, and consent. Optional analytics only with your opt‑in.</p>
+    <h4>Types</h4>
+    <ul>
+      <li data-i18n="cookies_prefs">Preference cookies: theme, language, UI layout.</li>
+      <li data-i18n="cookies_analytics">Analytics cookies: off by default; opt‑in only.</li>
+    </ul>
+    <h4 data-i18n="cookies_control">You can clear cookies in your browser at any time.</h4>
+  </div>
+</div>
+
+
+<div id="modalLogin" class="modal card" role="dialog" aria-modal="true" hidden>
+  <div class="modal-head">
+    <h3>Log in</h3>
+    <button class="btn ghost modal-close" data-close="modalLogin">✕</button>
+  </div>
+  <div class="modal-body">
+    <label>Email <input type="email" id="loginEmail" placeholder="you@example.com"></label>
+    <label>Password <input type="password" id="loginPass" placeholder="••••••••"></label>
+    <button class="btn primary" id="loginDo">Log in</button>
+    <p class="hint" id="loginHint"></p>
+  </div>
+</div>
+<div id="modalSignup" class="modal card" role="dialog" aria-modal="true" hidden>
+  <div class="modal-head">
+    <h3>Sign up</h3>
+    <button class="btn ghost modal-close" data-close="modalSignup">✕</button>
+  </div>
+  <div class="modal-body">
+    <label>Email <input type="email" id="suEmail" placeholder="you@example.com"></label>
+    <label>Password <input type="password" id="suPass" placeholder="Min 8 chars"></label>
+    <label><input type="checkbox" id="suAgree"> I agree to <a href="#terms" class="open-terms">Terms</a></label>
+    <button class="btn primary" id="signupDo">Create account</button>
+    <p class="hint" id="signupHint"></p>
+  </div>
+</div>
+
+
+<!-- Subscribe Modal (demo) -->
+<div class="modal" id="subscribeModal" aria-hidden="true">
+  <div class="modal-content card">
+    <button class="modal-close" id="subClose" aria-label="Close">×</button>
+    <div class="modal-body">
+      <h3 id="subTitle">Subscribe</h3>
+      <p id="subDesc">You selected a plan. This is a demo modal for next steps (checkout / details).</p>
+      <div class="controls auth">
+        <input type="email" id="suEmail" placeholder="Email"/>
+        <input type="password" id="suPass" placeholder="Password"/>
+        <button class="btn primary" id="subProceed">Continue</button>
+      </div>
+      <div class="hint" id="subHint"></div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>
