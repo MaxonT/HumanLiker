@@ -79,7 +79,7 @@ build upon, and evolve through collective creativity.
 
 ---
 
-###MIT License
+### MIT License
 
 Copyright (c) 2025 Tiger
 
