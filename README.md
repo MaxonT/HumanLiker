@@ -2,7 +2,7 @@
 Creator: Ming (Tiger) Yang
 ⸻
 
-🧭 Running Instructions!!
+🧭 Running Instructions!!!
 
 🖥️ Run Locally
 	1.	Download humanzier-site-v0.2.zip
